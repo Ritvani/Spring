@@ -1,0 +1,26 @@
+@container {
+    margin: 0 auto;
+}
+
+table{
+    border: palevioletred solid 15px;
+    width: 600px;
+    height: 200px;
+    font-size: 20px;
+}
+
+th{
+    color: blueviolet;
+    padding-left: 15px;
+}
+
+td{
+    padding-left: 15px;
+}
+
+h1{
+    color: palevioletred;
+    align-self: center;
+    padding-bottom: 10px;
+    padding-top: 50px;
+}
