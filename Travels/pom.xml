@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ritvan</groupId>
-    <artifactId>SaveTravels</artifactId>
+    <artifactId>Travels</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>SaveTravels</name>
-    <description>SaveTravels</description>
+    <name>Travels</name>
+    <description>Travels</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -34,8 +34,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
