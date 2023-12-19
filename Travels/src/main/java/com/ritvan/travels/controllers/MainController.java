@@ -48,7 +48,7 @@ public class MainController {
     }
 
     @PutMapping("/expenses/edit/{id}")
-    public String updateExpense(@PathVariable("id") Long id, Model model, @Valid @ModelAttribute("expense") Expenses expense, BindingResult result){
+    public String updateExpense(@PathVariable("id") Long id, @Valid @ModelAttribute("expense") Expenses expense, Model model, BindingResult result){
         if(result.hasErrors()){
             return "redirect:/expenses/update/{id}";
         } else{
@@ -64,7 +64,7 @@ public class MainController {
         return "redirect:/expenses";
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/expenses/{id}")
     public String expenseDetails(@PathVariable("id") Long id, Model model){
         model.addAttribute("expense", expenseService.findExpense(id));
         return "details";

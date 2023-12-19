@@ -22,15 +22,15 @@ public class ExpenseService {
     }
 
     public Expenses findExpense(Long id){
-        Optional<Expenses>optionalExpenses=expenseRepository.findById(id);
-        if (optionalExpenses.isPresent()){
-            return optionalExpenses.get();
+        Optional<Expenses>optionalExpense=expenseRepository.findById(id);
+        if (optionalExpense.isPresent()){
+            return optionalExpense.get();
         } else {
             return null;
         }
     }
 
-    public  Expenses updateExpense(Expenses expenses){
+    public Expenses updateExpense(Expenses expenses){
         return expenseRepository.save(expenses);
     }
 
