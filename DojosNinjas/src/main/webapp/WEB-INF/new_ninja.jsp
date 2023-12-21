@@ -14,9 +14,10 @@
     <title>New Ninja</title>
 </head>
 <body>
-<div>
+<div style="margin-top:10px">
     <h1>New Ninja</h1>
     <form:form action="/ninjas/new" method="post" modelAttribute="ninjas">
+        <div style="margin-top:10px">
         <form:label path="dojo">Dojo</form:label>
         <form:select path="dojo">
             <c:forEach items="${dojos}" var="dojo">
@@ -24,14 +25,21 @@
                         ${dojo.name}
                 </option>
             </c:forEach>
-        </form:select><br>
-        <form:label path="first_name">First Name:</form:label>
-        <form:input type="text" path="first_name"></form:input><br>
-        <form:label path="last_name">Last Name:</form:label>
-        <form:input type="text" path="last_name"></form:input><br>
-        <form:label path="age">Age:</form:label>
-        <form:input type="number" path="age"></form:input><br>
-        <form:button>Create</form:button>
+        </form:select>
+        </div>
+        <div style="margin-top:10px">
+            <form:label path="first_name">First Name:</form:label>
+            <form:input type="text" path="first_name"></form:input>
+        </div>
+        <div style="margin-top:10px">
+            <form:label path="last_name">Last Name:</form:label>
+            <form:input type="text" path="last_name"></form:input>
+        </div>
+        <div style="margin-top:10px">
+            <form:label path="age">Age:</form:label>
+            <form:input type="number" path="age"></form:input>
+        </div>
+        <form:button style="margin-top:10px">Create</form:button>
     </form:form>
 </div>
 </body>
