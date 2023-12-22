@@ -1,7 +1,9 @@
 package com.ritvan.loginregistration.controllers;
 
+import com.ritvan.loginregistration.models.Book;
 import com.ritvan.loginregistration.models.LoginUser;
 import com.ritvan.loginregistration.models.User;
+import com.ritvan.loginregistration.services.BookService;
 import com.ritvan.loginregistration.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,6 +23,9 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BookService bookService;
+
     @GetMapping("/")
     public String index(Model model, @ModelAttribute("newUser") User newUser, @ModelAttribute("newLogin") User newLogin, HttpSession session){
         Long loggedInUserID = (Long) session.getAttribute("loggedInUserID");
@@ -35,26 +40,26 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("newUser") User newUser,
-                           BindingResult result, Model model, HttpSession session) {
+    public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
+        userService.register(newUser, result);
 
         if(result.hasErrors()) {
             model.addAttribute("newLogin", new LoginUser());
             return "index";
         }
-
+        session.setAttribute("loggedInUserID", newUser.getId());
         return "redirect:/dashboard";
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
-                        BindingResult result, Model model, HttpSession session) {
+    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
+        User user = userService.login(newLogin, result);
 
         if(result.hasErrors()) {
             model.addAttribute("newUser", new User());
             return "index";
         }
-
+        session.setAttribute("loggedInUserID", user.getId());
         return "redirect:/dashboard";
     }
 
@@ -62,7 +67,7 @@ public class HomeController {
     public String dashboard(HttpSession session, Model model){
         Long loggedInUserID = (Long) session.getAttribute("loggedInUserID");
 
-        if (loggedInUserID==null){
+        if (loggedInUserID == null){
             return "redirect:/";
         }
 
@@ -72,10 +77,20 @@ public class HomeController {
         return "dashboard";
     }
 
-    @RequestMapping(".logout")
+    @RequestMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
     }
+
+    @GetMapping("/new/book")
+    public String newBook(@ModelAttribute ("book")Book book, Model model, HttpSession session){
+        User user = userService.findOneUser((Long)session.getAttribute("loggedInUserID"));
+        model.addAttribute("user", user);
+
+        return "new";
+    }
+
+//    @PostMapping("/create/book")
 
 }

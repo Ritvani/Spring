@@ -12,24 +12,26 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
     public User register(User newUser, BindingResult result){
-        if (userRepository.findByEmail(newUser.getEmail()) != null){
+        if (userRepository.findByEmail(newUser.getEmail()) == null){
             result.rejectValue("email", "EmailTaken", "Email address is already in use");
         }
 
         Optional<User> potentialUser = this.userRepository.findByEmail(newUser.getEmail());
+
         if (potentialUser.isPresent()){
-            result.rejectValue("email", "EmailTaken", "Email address is already in use");
+            result.rejectValue("email", "EmailTaken", "Email address is already taken");
         }
 
-        if (!newUser.getPassword().equals(newUser.getConfirm())){
-            result.rejectValue("confirm", "Matches", "The Confirm Password must match Password");
+        if(!newUser.getPassword().equals(newUser.getConfirm())) {
+            result.rejectValue("confirm", "Matches", "The Confirm Password must match Password!");
         }
 
-        if (result.hasErrors()){
+        if(result.hasErrors()) {
             return null;
         }else {
             String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());

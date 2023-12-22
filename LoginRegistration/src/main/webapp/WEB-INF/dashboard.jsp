@@ -22,7 +22,10 @@
     <div class="d-flex justify-content-between">
         <h1>Welcome, ${user.userName}!</h1>
         <h1>Welcome, ${user.email}!</h1>
-        <a href="/logout">Logout</a>
+        <div class="d-inline p-2">
+            <a href="/logout">Logout</a>
+            <a href="/new/book">Create Book</a>
+        </div>
     </div>
 </div>
 </body>
