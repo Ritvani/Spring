@@ -1,8 +1,8 @@
-package com.ritvan.loginregistration.services;
+package com.ritvan.bookclub.services;
 
-import com.ritvan.loginregistration.models.LoginUser;
-import com.ritvan.loginregistration.models.User;
-import com.ritvan.loginregistration.repositories.UserRepository;
+import com.ritvan.bookclub.models.LoginUser;
+import com.ritvan.bookclub.models.User;
+import com.ritvan.bookclub.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,24 +12,26 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
     public User register(User newUser, BindingResult result){
-        if (userRepository.findByEmail(newUser.getEmail()) != null){
+        if (userRepository.findByEmail(newUser.getEmail()) == null){
             result.rejectValue("email", "EmailTaken", "Email address is already in use");
         }
 
         Optional<User> potentialUser = this.userRepository.findByEmail(newUser.getEmail());
+
         if (potentialUser.isPresent()){
-            result.rejectValue("email", "EmailTaken", "Email address is already in use");
+            result.rejectValue("email", "EmailTaken", "Email address is already taken");
         }
 
-        if (!newUser.getPassword().equals(newUser.getConfirm())){
-            result.rejectValue("confirm", "Matches", "The Confirm Password must match Password");
+        if(!newUser.getPassword().equals(newUser.getConfirm())) {
+            result.rejectValue("confirm", "Matches", "The Confirm Password must match Password!");
         }
 
-        if (result.hasErrors()){
+        if(result.hasErrors()) {
             return null;
         }else {
             String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());

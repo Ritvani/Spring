@@ -1,4 +1,4 @@
-package com.ritvan.loginregistration.models;
+package com.ritvan.bookclub.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +30,9 @@ public class User {
     @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters")
     private String confirm;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Book>books;
+
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
@@ -48,12 +52,21 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String userName, String email, String password, String confirm) {
+    public User(Long id, String userName, String email, String password, String confirm, List<Book>books) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.confirm = confirm;
+        this.books=books;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public Long getId() {

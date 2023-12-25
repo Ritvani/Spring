@@ -1,4 +1,4 @@
-package com.ritvan.loginregistration.models;
+package com.ritvan.bookclub.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

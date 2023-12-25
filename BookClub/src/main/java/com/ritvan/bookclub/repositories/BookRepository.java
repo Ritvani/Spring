@@ -1,6 +1,6 @@
-package com.ritvan.loginregistration.repositories;
+package com.ritvan.bookclub.repositories;
 
-import com.ritvan.loginregistration.models.Book;
+import com.ritvan.bookclub.models.Book;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
